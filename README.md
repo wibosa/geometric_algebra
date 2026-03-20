@@ -1,7 +1,7 @@
 [![actions](https://github.com/Lichtso/geometric_algebra/actions/workflows/actions.yaml/badge.svg)](https://github.com/Lichtso/geometric_algebra/actions/workflows/actions.yaml)
 [![Docs](https://docs.rs/geometric_algebra/badge.svg)](https://docs.rs/geometric_algebra/)
 [![crates.io](https://img.shields.io/crates/v/geometric_algebra.svg)](https://crates.io/crates/geometric_algebra)
-
+[![actions](https://github.com/wibosa/geometric_algebra/actions/workflows/actions.yaml/badge.svg)](https://github.com/wibosa/geometric_algebra/actions/workflows/actions.yaml)
 ## About
 This repository allows you to describe [geometric algebras](https://en.wikipedia.org/wiki/Geometric_algebra) with 1 to 16 generator elements and generate SIMD-ready, dependency-less libraries for them. It also comes with a set of prebuilt projective geometric algebras in 1D, 2D and 3D which are elliptic, parabolic (euclidian) or hyperbolic.
 
