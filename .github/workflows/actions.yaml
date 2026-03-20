@@ -7,13 +7,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
       - name: Compile Code Generator
-        uses: actions-rs/cargo@v2
+        #uses: dtolnay/rust-toolchain@stable
+        #run: cargo build --all-features  --manifest-path codegen/Cargo.toml
+        uses: actions-rs/cargo@v1
         with:
           command: build
           args: --manifest-path codegen/Cargo.toml
         env:
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-      - uses: actions/upload-artifact@v4
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+      - name : Upload
+        uses: actions/upload-artifact@v4
         with:
           name: codegen-linux-bin
           path: codegen/target/debug/codegen
@@ -90,12 +93,6 @@ jobs:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       - name: Cross Compile Rust
         uses: actions-rs/cargo@v2
-        #uses: actions/checkout@v6
-        #uses: dtolnay/rust-toolchain@stable
-        #uses: dtolnay/install@cargo-docs-rs
-        env:
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-          RUSTFLAGS: ${{ matrix.target.rustflags }}
         with:
           command: build
           args: --target ${{ matrix.target.triple }}
