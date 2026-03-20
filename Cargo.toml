@@ -1,6 +1,10 @@
 [package]
 name = "geometric_algebra"
+<<<<<<< HEAD
 version = "0.3.2"
+=======
+version = "0.3.1"
+>>>>>>> 25597c1e217df9da7d2f3fab564a2656430d8785
 authors = ["Alexander Meißner <AlexanderMeissner@gmx.net>"]
 description = "Generate(d) custom libraries for geometric algebras"
 repository = "https://github.com/Lichtso/geometric_algebra/"
