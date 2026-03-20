@@ -5,12 +5,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Compile Code Generator
-        uses: actions-rs/cargo@v1
+        uses: actions-rs/cargo@v2
         with:
           command: build
           args: --manifest-path codegen/Cargo.toml
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       - uses: actions/upload-artifact@v4
         with:
           name: codegen-linux-bin
@@ -84,9 +86,15 @@ jobs:
           target: ${{ matrix.target.triple }}
           toolchain: ${{ matrix.target.toolchain }}
           override: true
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       - name: Cross Compile Rust
         uses: actions-rs/cargo@v2
+        #uses: actions/checkout@v6
+        #uses: dtolnay/rust-toolchain@stable
+        #uses: dtolnay/install@cargo-docs-rs
         env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
           RUSTFLAGS: ${{ matrix.target.rustflags }}
         with:
           command: build
