@@ -86,7 +86,7 @@ jobs:
           name: ${{ matrix.algebra.name }}
           path: src/${{ matrix.algebra.name }}
       - name: Install Dependencies
-        uses: actions-rs/toolchain
+        uses: actions-rs/toolchain@v1
         with:
           target: ${{ matrix.target.triple }}
           toolchain: ${{ matrix.target.toolchain }}
@@ -96,7 +96,7 @@ jobs:
       - name: Cross Compile Rust
         env:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-        uses: actions-rs/cargo
+        uses: actions-rs/cargo@v1
         with:
           command: build
           args: --target ${{ matrix.target.triple }}
