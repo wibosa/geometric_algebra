@@ -79,13 +79,13 @@ jobs:
           name: lib-src
           path: src
       - name: Install Dependencies
-        uses: actions-rs/toolchain@v1
+        uses: actions-rs/toolchain@v2
         with:
           target: ${{ matrix.target.triple }}
           toolchain: ${{ matrix.target.toolchain }}
           override: true
       - name: Cross Compile Rust
-        uses: actions-rs/cargo@v1
+        uses: actions-rs/cargo@v2
         env:
           RUSTFLAGS: ${{ matrix.target.rustflags }}
         with:
