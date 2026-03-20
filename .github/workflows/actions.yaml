@@ -17,9 +17,10 @@ jobs:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
       - name : Upload
         uses: actions/upload-artifact@v4
-        with:
-          name: codegen-linux-bin
+        with: {
+          name: codegen-linux-bin,
           path: codegen/target/debug/codegen
+        }
   run-codegen:
     needs: build-codegen
     runs-on: ubuntu-latest
@@ -51,13 +52,14 @@ jobs:
           path: codegen
       - run: chmod +x codegen/codegen
       - run: mkdir src
+      - run: mkdir src/${{ matrix.algebra.name }}
       - name: Generate Source Code
         working-directory: codegen
         run: ./codegen "${{ matrix.algebra.descriptor }}"
       - uses: actions/upload-artifact@v4
         with:
-          name: lib-src
-          path: src/${{ matrix.algebra.name }}.*
+          name: ${{ matrix.algebra.name }}
+          path: src/${{ matrix.algebra.name }}
   test-rust:
     needs: run-codegen
     runs-on: ubuntu-latest
@@ -81,8 +83,8 @@ jobs:
         uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
-          name: lib-src
-          path: src
+          name: ${{ matrix.algebra.name }}
+          path: src/${{ matrix.algebra.name }}
       - name: Install Dependencies
         uses: actions-rs/toolchain@v2
         with:
@@ -92,6 +94,8 @@ jobs:
         env:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       - name: Cross Compile Rust
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
         uses: actions-rs/cargo@v2
         with:
           command: build
