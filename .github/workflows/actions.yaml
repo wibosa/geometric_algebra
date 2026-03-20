@@ -86,7 +86,7 @@ jobs:
           name: ${{ matrix.algebra.name }}
           path: src/${{ matrix.algebra.name }}
       - name: Install Dependencies
-        uses: actions-rs/toolchain@v2
+        uses: actions-rs/toolchain
         with:
           target: ${{ matrix.target.triple }}
           toolchain: ${{ matrix.target.toolchain }}
@@ -96,7 +96,7 @@ jobs:
       - name: Cross Compile Rust
         env:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-        uses: actions-rs/cargo@v2
+        uses: actions-rs/cargo
         with:
           command: build
           args: --target ${{ matrix.target.triple }}
@@ -106,8 +106,8 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: lib-src
-          path: src
+          name: ${{ matrix.algebra.name }}
+          path: src/${{ matrix.algebra.name }}
       - name: Install Dependencies
         run: |
           curl -GO https://storage.googleapis.com/shaderc/artifacts/prod/graphics_shader_compiler/shaderc/linux/continuous_clang_release/357/20210315-190728/install.tgz
