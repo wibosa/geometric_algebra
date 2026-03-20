@@ -5,13 +5,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Compile Code Generator
         uses: actions-rs/cargo@v1
         with:
           command: build
           args: --manifest-path codegen/Cargo.toml
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: codegen-linux-bin
           path: codegen/target/debug/codegen
@@ -40,7 +40,7 @@ jobs:
           - name: hpga3d
             descriptor: "hpga3d:-1,1,1,1;Scalar:1;MultiVector:1,e23,-e13,e12|e0,-e023,e013,-e012|e123,e1,e2,e3|e0123,e01,e02,e03;Rotor:1,e23,-e13,e12;Point:e123,-e023,e013,-e012;IdealPoint:e01,e02,e03;Plane:e0,e1,e2,e3;Line:e01,e02,e03|e23,-e13,e12;Translator:1,e01,e02,e03;Motor:1,e23,-e13,e12|e0123,e01,e02,e03;PointAndPlane:e123,-e023,e013,-e012|e0,e1,e2,e3"
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         with:
           name: codegen-linux-bin
           path: codegen
@@ -49,7 +49,7 @@ jobs:
       - name: Generate Source Code
         working-directory: codegen
         run: ./codegen "${{ matrix.algebra.descriptor }}"
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: lib-src
           path: src/${{ matrix.algebra.name }}.*
@@ -73,8 +73,8 @@ jobs:
             rustflags: --cfg=web_sys_unstable_apis -C target-feature=+simd128
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - uses: actions/download-artifact@v2
+        uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
         with:
           name: lib-src
           path: src
@@ -95,7 +95,7 @@ jobs:
     needs: run-codegen
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         with:
           name: lib-src
           path: src
